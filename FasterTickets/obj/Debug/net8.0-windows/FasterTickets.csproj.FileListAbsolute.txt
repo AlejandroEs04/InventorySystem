@@ -31,3 +31,8 @@ E:\Users\Default\Documents\Development Projects\Software Development\FasterTicke
 E:\Users\Default\Documents\Development Projects\Software Development\FasterTickets\FasterTickets\obj\Debug\net8.0-windows\FasterTickets.genruntimeconfig.cache
 E:\Users\Default\Documents\Development Projects\Software Development\FasterTickets\FasterTickets\obj\Debug\net8.0-windows\ref\FasterTickets.dll
 E:\Users\Default\Documents\Development Projects\Software Development\FasterTickets\FasterTickets\bin\Debug\net8.0-windows\itextsharp.dll
+E:\Users\Default\Documents\Development Projects\Software Development\FasterTickets\FasterTickets\obj\Debug\net8.0-windows\FasterTickets.sourcelink.json
+E:\Users\Default\Documents\Development Projects\Software Development\FasterTickets\FasterTickets\obj\Debug\net8.0-windows\FasterTickets.Form2.resources
+E:\Users\Default\Documents\Development Projects\Software Development\FasterTickets\FasterTickets\obj\Debug\net8.0-windows\FasterTickets.Properties.Resources.resources
+E:\Users\Default\Documents\Development Projects\Software Development\FasterTickets\FasterTickets\obj\Debug\net8.0-windows\FasterTickets.Products.resources
+E:\Users\Default\Documents\Development Projects\Software Development\FasterTickets\FasterTickets\obj\Debug\net8.0-windows\FasterTickets.ProductEditForm.resources

@@ -28,163 +28,67 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
-            searchTextBox = new TextBox();
-            searchButton = new Button();
-            addButton = new Button();
-            printButton = new Button();
-            selectedProductsDataGridView = new DataGridView();
-            label1 = new Label();
-            subtotalLabel = new Label();
-            ivaLabel = new Label();
-            label3 = new Label();
-            totalLabel = new Label();
-            label5 = new Label();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)selectedProductsDataGridView).BeginInit();
+            components = new System.ComponentModel.Container();
+            menuTab = new MenuStrip();
+            inicioToolStripMenuItem = new ToolStripMenuItem();
+            CreateTicketButtonMenu = new ToolStripMenuItem();
+            productosToolStripMenuItem = new ToolStripMenuItem();
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            menuTab.SuspendLayout();
             SuspendLayout();
             // 
-            // dataGridView1
+            // menuTab
             // 
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.BackgroundColor = SystemColors.Control;
-            dataGridView1.BorderStyle = BorderStyle.Fixed3D;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.GridColor = SystemColors.InactiveBorder;
-            dataGridView1.Location = new Point(12, 41);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridView1.Size = new Size(893, 64);
-            dataGridView1.TabIndex = 0;
+            menuTab.BackColor = SystemColors.ControlDarkDark;
+            menuTab.Items.AddRange(new ToolStripItem[] { inicioToolStripMenuItem, CreateTicketButtonMenu, productosToolStripMenuItem });
+            menuTab.Location = new Point(0, 0);
+            menuTab.Name = "menuTab";
+            menuTab.Size = new Size(998, 24);
+            menuTab.TabIndex = 15;
+            menuTab.Text = "menuStrip1";
             // 
-            // searchTextBox
+            // inicioToolStripMenuItem
             // 
-            searchTextBox.Location = new Point(12, 12);
-            searchTextBox.Name = "searchTextBox";
-            searchTextBox.Size = new Size(893, 23);
-            searchTextBox.TabIndex = 1;
+            inicioToolStripMenuItem.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            inicioToolStripMenuItem.ForeColor = SystemColors.ControlLightLight;
+            inicioToolStripMenuItem.Name = "inicioToolStripMenuItem";
+            inicioToolStripMenuItem.Size = new Size(49, 20);
+            inicioToolStripMenuItem.Text = "Inicio";
             // 
-            // searchButton
+            // CreateTicketButtonMenu
             // 
-            searchButton.Location = new Point(911, 12);
-            searchButton.Name = "searchButton";
-            searchButton.Size = new Size(75, 23);
-            searchButton.TabIndex = 2;
-            searchButton.Text = "Buscar";
-            searchButton.UseVisualStyleBackColor = true;
+            CreateTicketButtonMenu.ForeColor = SystemColors.ControlLightLight;
+            CreateTicketButtonMenu.Name = "CreateTicketButtonMenu";
+            CreateTicketButtonMenu.Size = new Size(81, 20);
+            CreateTicketButtonMenu.Text = "Crear Ticket";
+            CreateTicketButtonMenu.Click += CreateTicketButtonMenu_Click;
             // 
-            // addButton
+            // productosToolStripMenuItem
             // 
-            addButton.Location = new Point(911, 41);
-            addButton.Name = "addButton";
-            addButton.Size = new Size(75, 23);
-            addButton.TabIndex = 3;
-            addButton.Text = "Agregar";
-            addButton.UseVisualStyleBackColor = true;
+            productosToolStripMenuItem.ForeColor = SystemColors.ControlLightLight;
+            productosToolStripMenuItem.Name = "productosToolStripMenuItem";
+            productosToolStripMenuItem.Size = new Size(73, 20);
+            productosToolStripMenuItem.Text = "Productos";
+            productosToolStripMenuItem.Click += productosToolStripMenuItem_Click;
             // 
-            // printButton
+            // contextMenuStrip1
             // 
-            printButton.Location = new Point(911, 111);
-            printButton.Name = "printButton";
-            printButton.Size = new Size(75, 23);
-            printButton.TabIndex = 4;
-            printButton.Text = "Imprimir";
-            printButton.UseVisualStyleBackColor = true;
-            // 
-            // selectedProductsDataGridView
-            // 
-            selectedProductsDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            selectedProductsDataGridView.BackgroundColor = SystemColors.Menu;
-            selectedProductsDataGridView.BorderStyle = BorderStyle.Fixed3D;
-            selectedProductsDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            selectedProductsDataGridView.Location = new Point(12, 111);
-            selectedProductsDataGridView.Name = "selectedProductsDataGridView";
-            selectedProductsDataGridView.Size = new Size(893, 300);
-            selectedProductsDataGridView.TabIndex = 5;
-            selectedProductsDataGridView.CellContentClick += selectedProductsDataGridView_CellContentClick;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 15F);
-            label1.Location = new Point(12, 420);
-            label1.Name = "label1";
-            label1.Size = new Size(91, 28);
-            label1.TabIndex = 8;
-            label1.Text = "Subtotal:";
-            // 
-            // subtotalLabel
-            // 
-            subtotalLabel.AutoSize = true;
-            subtotalLabel.Font = new Font("Segoe UI", 15F);
-            subtotalLabel.Location = new Point(109, 420);
-            subtotalLabel.Name = "subtotalLabel";
-            subtotalLabel.Size = new Size(23, 28);
-            subtotalLabel.TabIndex = 10;
-            subtotalLabel.Text = "0";
-            // 
-            // ivaLabel
-            // 
-            ivaLabel.AutoSize = true;
-            ivaLabel.Font = new Font("Segoe UI", 15F);
-            ivaLabel.Location = new Point(109, 448);
-            ivaLabel.Name = "ivaLabel";
-            ivaLabel.Size = new Size(23, 28);
-            ivaLabel.TabIndex = 12;
-            ivaLabel.Text = "0";
-            ivaLabel.Click += label2_Click;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 15F);
-            label3.Location = new Point(12, 448);
-            label3.Name = "label3";
-            label3.Size = new Size(45, 28);
-            label3.TabIndex = 11;
-            label3.Text = "IVA:";
-            // 
-            // totalLabel
-            // 
-            totalLabel.AutoSize = true;
-            totalLabel.Font = new Font("Segoe UI", 15F);
-            totalLabel.Location = new Point(109, 476);
-            totalLabel.Name = "totalLabel";
-            totalLabel.Size = new Size(23, 28);
-            totalLabel.TabIndex = 14;
-            totalLabel.Text = "0";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 15F);
-            label5.Location = new Point(12, 476);
-            label5.Name = "label5";
-            label5.Size = new Size(58, 28);
-            label5.TabIndex = 13;
-            label5.Text = "Total:";
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(61, 4);
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSize = true;
             ClientSize = new Size(998, 551);
-            Controls.Add(totalLabel);
-            Controls.Add(label5);
-            Controls.Add(ivaLabel);
-            Controls.Add(label3);
-            Controls.Add(subtotalLabel);
-            Controls.Add(label1);
-            Controls.Add(selectedProductsDataGridView);
-            Controls.Add(printButton);
-            Controls.Add(addButton);
-            Controls.Add(searchButton);
-            Controls.Add(searchTextBox);
-            Controls.Add(dataGridView1);
+            Controls.Add(menuTab);
+            FormBorderStyle = FormBorderStyle.Fixed3D;
+            MainMenuStrip = menuTab;
             Name = "Form1";
             Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)selectedProductsDataGridView).EndInit();
+            menuTab.ResumeLayout(false);
+            menuTab.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -203,5 +107,10 @@
         private Label label3;
         private Label totalLabel;
         private Label label5;
+        private MenuStrip menuTab;
+        private ToolStripMenuItem inicioToolStripMenuItem;
+        private ToolStripMenuItem CreateTicketButtonMenu;
+        private ContextMenuStrip contextMenuStrip1;
+        private ToolStripMenuItem productosToolStripMenuItem;
     }
 }
