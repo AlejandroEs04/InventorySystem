@@ -38,8 +38,8 @@
             numericUpDownPrice = new NumericUpDown();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel1 = new Panel();
-            label5 = new Label();
             label6 = new Label();
+            label5 = new Label();
             flowLayoutPanel1 = new FlowLayoutPanel();
             saveProductButton = new Button();
             removeProductButton = new Button();
@@ -74,7 +74,8 @@
             // 
             numericUpDownStock.Font = new Font("Segoe UI", 12F);
             numericUpDownStock.Location = new Point(9, 158);
-            numericUpDownStock.Minimum = new decimal(new int[] { 100, 0, 0, int.MinValue });
+            numericUpDownStock.Maximum = new decimal(new int[] { 20000, 0, 0, 0 });
+            numericUpDownStock.Minimum = new decimal(new int[] { 1000, 0, 0, int.MinValue });
             numericUpDownStock.Name = "numericUpDownStock";
             numericUpDownStock.Size = new Size(646, 29);
             numericUpDownStock.TabIndex = 2;
@@ -103,6 +104,8 @@
             // 
             numericUpDownCost.Font = new Font("Segoe UI", 12F);
             numericUpDownCost.Location = new Point(9, 214);
+            numericUpDownCost.Maximum = new decimal(new int[] { 20000, 0, 0, 0 });
+            numericUpDownCost.Minimum = new decimal(new int[] { 1000, 0, 0, int.MinValue });
             numericUpDownCost.Name = "numericUpDownCost";
             numericUpDownCost.Size = new Size(646, 29);
             numericUpDownCost.TabIndex = 4;
@@ -121,6 +124,8 @@
             // 
             numericUpDownPrice.Font = new Font("Segoe UI", 12F);
             numericUpDownPrice.Location = new Point(9, 270);
+            numericUpDownPrice.Maximum = new decimal(new int[] { 20000, 0, 0, 0 });
+            numericUpDownPrice.Minimum = new decimal(new int[] { 1000, 0, 0, int.MinValue });
             numericUpDownPrice.Name = "numericUpDownPrice";
             numericUpDownPrice.Size = new Size(646, 29);
             numericUpDownPrice.TabIndex = 6;
@@ -158,16 +163,6 @@
             panel1.Size = new Size(669, 444);
             panel1.TabIndex = 0;
             // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            label5.Location = new Point(9, 12);
-            label5.Name = "label5";
-            label5.Size = new Size(278, 30);
-            label5.TabIndex = 8;
-            label5.Text = "Informacion del producto";
-            // 
             // label6
             // 
             label6.AutoSize = true;
@@ -177,6 +172,16 @@
             label6.Size = new Size(488, 19);
             label6.TabIndex = 9;
             label6.Text = "Ingresa la informacion que se te pide para agregar la informacion del producto";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            label5.Location = new Point(9, 12);
+            label5.Name = "label5";
+            label5.Size = new Size(278, 30);
+            label5.TabIndex = 8;
+            label5.Text = "Informacion del producto";
             // 
             // flowLayoutPanel1
             // 

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FasterTickets")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3b48df324e05d7d7aa11e4d3fad904211c79ef7c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0252326a5f1a034a072b903469fc1f72b1103db9")]
 [assembly: System.Reflection.AssemblyProductAttribute("FasterTickets")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FasterTickets")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

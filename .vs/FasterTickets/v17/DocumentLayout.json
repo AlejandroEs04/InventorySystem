@@ -1,12 +1,69 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "E:\\Users\\Default\\Documents\\Development Projects\\Software Development\\FasterTickets\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DE9AA76F-5318-4C51-8F6A-815C970CCD04}|FasterTickets\\FasterTickets.csproj|e:\\users\\default\\documents\\development projects\\software development\\fastertickets\\fastertickets\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE9AA76F-5318-4C51-8F6A-815C970CCD04}|FasterTickets\\FasterTickets.csproj|solutionrelative:fastertickets\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE9AA76F-5318-4C51-8F6A-815C970CCD04}|FasterTickets\\FasterTickets.csproj|e:\\users\\default\\documents\\development projects\\software development\\fastertickets\\fastertickets\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DE9AA76F-5318-4C51-8F6A-815C970CCD04}|FasterTickets\\FasterTickets.csproj|solutionrelative:fastertickets\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE9AA76F-5318-4C51-8F6A-815C970CCD04}|FasterTickets\\FasterTickets.csproj|e:\\users\\default\\documents\\development projects\\software development\\fastertickets\\fastertickets\\producteditform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DE9AA76F-5318-4C51-8F6A-815C970CCD04}|FasterTickets\\FasterTickets.csproj|solutionrelative:fastertickets\\producteditform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form2.cs",
+              "DocumentMoniker": "E:\\Users\\Default\\Documents\\Development Projects\\Software Development\\FasterTickets\\FasterTickets\\Form2.cs",
+              "RelativeDocumentMoniker": "FasterTickets\\Form2.cs",
+              "ToolTip": "E:\\Users\\Default\\Documents\\Development Projects\\Software Development\\FasterTickets\\FasterTickets\\Form2.cs",
+              "RelativeToolTip": "FasterTickets\\Form2.cs",
+              "ViewState": "AQIAANcAAAAAAAAAAAAAwN8AAABEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-25T19:51:55.167Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form2.cs [Design]",
+              "DocumentMoniker": "E:\\Users\\Default\\Documents\\Development Projects\\Software Development\\FasterTickets\\FasterTickets\\Form2.cs",
+              "RelativeDocumentMoniker": "FasterTickets\\Form2.cs",
+              "ToolTip": "E:\\Users\\Default\\Documents\\Development Projects\\Software Development\\FasterTickets\\FasterTickets\\Form2.cs [Design]",
+              "RelativeToolTip": "FasterTickets\\Form2.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-25T19:51:51.025Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProductEditForm.cs [Design]",
+              "DocumentMoniker": "E:\\Users\\Default\\Documents\\Development Projects\\Software Development\\FasterTickets\\FasterTickets\\ProductEditForm.cs",
+              "RelativeDocumentMoniker": "FasterTickets\\ProductEditForm.cs",
+              "ToolTip": "E:\\Users\\Default\\Documents\\Development Projects\\Software Development\\FasterTickets\\FasterTickets\\ProductEditForm.cs [Design]",
+              "RelativeToolTip": "FasterTickets\\ProductEditForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-25T19:36:26.223Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
