@@ -71,13 +71,13 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 120F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new Size(872, 501);
+            tableLayoutPanel1.Size = new Size(921, 501);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // addButton
             // 
             addButton.Dock = DockStyle.Fill;
-            addButton.Location = new Point(755, 3);
+            addButton.Location = new Point(804, 3);
             addButton.Name = "addButton";
             addButton.Size = new Size(114, 29);
             addButton.TabIndex = 1;
@@ -92,7 +92,7 @@
             textBoxSearch.Font = new Font("Segoe UI", 11F);
             textBoxSearch.Location = new Point(3, 3);
             textBoxSearch.Name = "textBoxSearch";
-            textBoxSearch.Size = new Size(746, 27);
+            textBoxSearch.Size = new Size(795, 27);
             textBoxSearch.TabIndex = 0;
             textBoxSearch.Click += textBoxSearch_Click;
             textBoxSearch.Leave += textBoxSearch_Leave;
@@ -105,7 +105,7 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(3, 38);
             panel1.Name = "panel1";
-            panel1.Size = new Size(866, 340);
+            panel1.Size = new Size(915, 340);
             panel1.TabIndex = 5;
             // 
             // searchPanel
@@ -115,7 +115,7 @@
             searchPanel.Location = new Point(0, 0);
             searchPanel.Name = "searchPanel";
             searchPanel.RightToLeft = RightToLeft.Yes;
-            searchPanel.Size = new Size(866, 113);
+            searchPanel.Size = new Size(915, 113);
             searchPanel.TabIndex = 4;
             // 
             // productsSearchBox
@@ -128,7 +128,7 @@
             productsSearchBox.Location = new Point(0, 0);
             productsSearchBox.Name = "productsSearchBox";
             productsSearchBox.RightToLeft = RightToLeft.No;
-            productsSearchBox.Size = new Size(866, 113);
+            productsSearchBox.Size = new Size(915, 113);
             productsSearchBox.TabIndex = 3;
             productsSearchBox.SelectedIndexChanged += ProductsSearchBox_SelectedIndexChanged;
             // 
@@ -140,7 +140,7 @@
             productsSelectedGrid.Dock = DockStyle.Fill;
             productsSelectedGrid.Location = new Point(0, 0);
             productsSelectedGrid.Name = "productsSelectedGrid";
-            productsSelectedGrid.Size = new Size(866, 340);
+            productsSelectedGrid.Size = new Size(915, 340);
             productsSelectedGrid.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -242,7 +242,7 @@
             flowLayoutPanel1.Controls.Add(printButton);
             flowLayoutPanel1.Controls.Add(resetButton);
             flowLayoutPanel1.Dock = DockStyle.Fill;
-            flowLayoutPanel1.Location = new Point(755, 384);
+            flowLayoutPanel1.Location = new Point(804, 384);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(114, 114);
             flowLayoutPanel1.TabIndex = 7;
@@ -256,6 +256,7 @@
             printButton.TabIndex = 0;
             printButton.Text = "Imprimir";
             printButton.UseVisualStyleBackColor = true;
+            printButton.Click += PrintButton_Click;
             // 
             // resetButton
             // 
@@ -271,7 +272,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(892, 521);
+            ClientSize = new Size(941, 521);
             Controls.Add(tableLayoutPanel1);
             Name = "Form2";
             Padding = new Padding(10);

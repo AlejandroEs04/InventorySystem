@@ -72,5 +72,14 @@ namespace FasterTickets
             editForm.FormClosed += (s, args) => LoadProducts(); // Recargar productos al cerrar el formulario
             editForm.Show();
         }
+
+        private void TextBox1_TextChanged(object sender, EventArgs e)
+        {
+            string searchText = textBoxSearch.Text.ToLower();
+
+            List<ProductForm> productsFiltered = products.Where(p => p.Name.ToLower().Contains(searchText)).ToList();
+
+            dataGridViewProducts.DataSource = productsFiltered;
+        }
     }
 }

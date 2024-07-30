@@ -1,14 +1,11 @@
 ﻿using FasterTickets.Models;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Diagnostics;
+using Font = iTextSharp.text.Font;
+using Rectangle = iTextSharp.text.Rectangle;
 
 namespace FasterTickets
 {
@@ -16,9 +13,7 @@ namespace FasterTickets
     {
         private List<Product> products;
         private List<Product> productsFiltered;
-        private List<ProductSelected> productsSelected;
-
-        private bool isSelecting = false;
+        private Decimal totalSale;
         private bool suppressSelectedIndexChanged = false;
 
         public Form2()
@@ -26,6 +21,36 @@ namespace FasterTickets
             InitializeComponent();
             LoadProducts();
             ControllSettings();
+        }
+
+        private void textBoxSearch_Click(object sender, EventArgs e)
+        {
+            searchPanel.Visible = true;
+        }
+
+        private void textBoxSearch_Leave(object sender, EventArgs e)
+        {
+            searchPanel.Visible = false;
+        }
+
+        private void addButton_Click(object sender, EventArgs e)
+        {
+            AddProduct();
+        }
+
+        private void ResetButton_Click(object sender, EventArgs e)
+        {
+            productsSelectedGrid.Rows.Clear();
+            UpdateTotals();
+        }
+
+        private void PrintButton_Click(object sender, EventArgs e)
+        {
+            long saleId = SaveSale();
+            SaveProductSale(saleId);
+
+            GeneratePdf();
+            productsSelectedGrid.Rows.Clear();
         }
 
         private void LoadProducts()
@@ -36,7 +61,7 @@ namespace FasterTickets
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
-                string query = "SELECT * FROM ProductView"; // Ajusta la consulta según tu tabla y columnas
+                string query = "SELECT * FROM ProductView";
                 MySqlCommand command = new MySqlCommand(query, connection);
 
                 using (MySqlDataReader reader = command.ExecuteReader())
@@ -93,8 +118,8 @@ namespace FasterTickets
         private void UpdateTotals()
         {
             decimal subtotal = 0;
-            decimal iva = 0;
-            decimal total = 0;
+            decimal iva;
+            decimal total;
 
             foreach (DataGridViewRow row in productsSelectedGrid.Rows)
             {
@@ -105,8 +130,10 @@ namespace FasterTickets
                 subtotal += price * quantity;
             }
 
-            iva = subtotal * 0.16m; // IVA del 16%
+            iva = subtotal * 0.16m;
             total = subtotal + iva;
+
+            totalSale = total;
 
             subtotalLabel.Text = $"{subtotal:C}";
             ivaLabel.Text = $"{iva:C}";
@@ -129,7 +156,7 @@ namespace FasterTickets
             else
             {
                 productsFiltered = products
-                    .Where(p => p.Name.ToLower().Contains(searchText))
+                    .Where(p => p.Name.ToLower().Contains(searchText) || p.Id.ToString().Contains(searchText))
                     .ToList();
             }
 
@@ -140,19 +167,18 @@ namespace FasterTickets
             AdjustSearchPanelHeight();
             searchPanel.Visible = productsFiltered.Count > 0;
 
-
             suppressSelectedIndexChanged = false;
         }
 
         private void AdjustSearchPanelHeight()
         {
-            int maxHeight = 150; // Máximo alto deseado
-            int itemHeight = 20; // Alto de cada ítem, ajustar según necesario
+            int maxHeight = 150;
+            int itemHeight = 20;
             int height = Math.Min(maxHeight, productsFiltered.Count * itemHeight);
 
             searchPanel.Height = height;
             searchPanel.Width = tableLayoutPanel1.Width;
-            searchPanel.Left = textBoxSearch.Left; // Alinear el Panel al TextBox
+            searchPanel.Left = textBoxSearch.Left;
             searchPanel.Top = textBoxSearch.Bottom;
         }
 
@@ -184,7 +210,7 @@ namespace FasterTickets
                 return;
             }
 
-            Product productsSelected = products
+            Product? productsSelected = products
                 .Where(p => p.Name.ToLower().Contains(searchText))
                 .FirstOrDefault();
 
@@ -196,14 +222,11 @@ namespace FasterTickets
 
             foreach (DataGridViewRow row in productsSelectedGrid.Rows)
             {
-                // Asegurarse de no estar iterando sobre la fila nueva
                 if (row.IsNewRow) continue;
 
-                // Verificar que la celda "Name" no sea nula
                 var nameCell = row.Cells["Name"];
                 if (nameCell?.Value != null && nameCell.Value.ToString() == productsSelected.Name)
                 {
-                    // Verificar que la celda "Quantity" no sea nula
                     var quantityCell = row.Cells["Quantity"];
                     if (quantityCell?.Value != null)
                     {
@@ -221,25 +244,187 @@ namespace FasterTickets
             UpdateTotals();
         }
 
-        private void textBoxSearch_Click(object sender, EventArgs e)
+        private long SaveSale()
         {
-            searchPanel.Visible = true;
+            long ventaId = 0;
+
+            string connectionString = "Server=localhost;Database=Faster;User ID=root;Password=Alejandroe2004ms*;";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string querySale = @"
+                    INSERT INTO Sale (total, sale_date)
+                        VALUES (@total, NOW());
+                    SELECT LAST_INSERT_ID();";
+                    MySqlCommand command = new MySqlCommand(querySale, connection);
+
+                    using (MySqlCommand cmd = new MySqlCommand(querySale, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@total", totalSale);
+
+                        cmd.ExecuteNonQuery();
+                        ventaId = cmd.LastInsertedId;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al registrar la venta: " + ex.Message);
+                }
+            }
+
+            return ventaId;
         }
 
-        private void textBoxSearch_Leave(object sender, EventArgs e)
+        private void SaveProductSale(long saleId)
         {
-            searchPanel.Visible = false;
+            string connectionString = "Server=localhost;Database=Faster;User ID=root;Password=Alejandroe2004ms*;";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string queryProduct = @"
+                        INSERT INTO SaleProduct (sale_id, product_id, quantity, price_unit)
+                        VALUES (@sale_id, @product_id, @quantity, @price_unit)";
+
+                    using(MySqlCommand cmd = new MySqlCommand(queryProduct, connection))
+                    {
+                        cmd.Parameters.Add("@sale_id", MySqlDbType.Int64);
+                        cmd.Parameters.Add("@product_id", MySqlDbType.Int32);
+                        cmd.Parameters.Add("@quantity", MySqlDbType.Int32);
+                        cmd.Parameters.Add("@price_unit", MySqlDbType.Decimal);
+
+                        foreach (DataGridViewRow row in productsSelectedGrid.Rows)
+                        {
+                            if (row.IsNewRow) continue;
+
+                            var nameCell = row.Cells["Name"];
+                            if (nameCell?.Value != null)
+                            {
+                                cmd.Parameters["@sale_id"].Value = saleId;
+                                cmd.Parameters["@product_id"].Value = row.Cells["Id"].Value.ToString();
+                                cmd.Parameters["@price_unit"].Value = Convert.ToDecimal(row.Cells["Price"].Value);
+                                cmd.Parameters["@quantity"].Value = Convert.ToInt32(row.Cells["Quantity"].Value);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al registrar el producto: " + ex.Message);
+                }
+            }
         }
 
-        private void addButton_Click(object sender, EventArgs e)
+        private void GeneratePdf()
         {
-            AddProduct();
+            string filePath = "Ticket.pdf";
+
+            Document doc = new Document(PageSize.A7, 10, 10, 10, 10);
+            PdfWriter.GetInstance(doc, new FileStream("Ticket.pdf", FileMode.Create));
+            doc.Open();
+            Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA, 5);
+            Font footerFont = FontFactory.GetFont(FontFactory.HELVETICA, 6);
+            Font footerBoldFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 4);
+            Font footerLittleFont = FontFactory.GetFont(FontFactory.HELVETICA, 4);
+            Font cellHeaderFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 5);
+            Font bodyFont = FontFactory.GetFont(FontFactory.HELVETICA, 5);
+
+            doc.Add(new Paragraph("Faster Deposito Dental", headerFont));
+            doc.Add(new Paragraph("Carlos Alejandro Estrada Martinez", headerFont));
+            doc.Add(new Paragraph("RFC. EAMC-800717-BT9", headerFont));
+            doc.Add(new Paragraph("Tel. 8112882028", headerFont));
+            doc.Add(new Paragraph("Web. www.fasterdepot.com", headerFont));
+            doc.Add(new Paragraph("No. 1", headerFont));
+
+            doc.Add(new Paragraph("\n"));
+
+            PdfPTable table = new PdfPTable(3);
+            table.WidthPercentage = 100;
+
+            float[] columnWidths = { 2f, 1f, 1f };
+            table.SetWidths(columnWidths);
+
+
+            PdfPCell cell = new PdfPCell(new Phrase("Producto", cellHeaderFont));
+            cell.Border = Rectangle.NO_BORDER;
+            cell.Padding = 0;
+            table.AddCell(cell);
+
+            cell = new PdfPCell(new Phrase("Cantidad", cellHeaderFont));
+            cell.Border = Rectangle.NO_BORDER;
+            cell.Padding = 0;
+            table.AddCell(cell);
+
+            cell = new PdfPCell(new Phrase("Importe", cellHeaderFont));
+            cell.Border = Rectangle.NO_BORDER;
+            cell.Padding = 0;
+            table.AddCell(cell);
+
+            foreach (DataGridViewRow row in productsSelectedGrid.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                var nameCell = row.Cells["Name"];
+                if (nameCell?.Value != null)
+                {
+                    decimal subtotalProduct = Convert.ToInt32(row.Cells["Price"].Value) * Convert.ToInt32(row.Cells["Quantity"].Value);
+                    decimal totalProduct = subtotalProduct + (subtotalProduct * 0.16m);
+
+                    cell = new PdfPCell(new Phrase(row.Cells["Name"].Value.ToString(), bodyFont));
+                    cell.Border = Rectangle.NO_BORDER;
+                    cell.Padding = 0;
+                    cell.PaddingTop = 5;
+                    table.AddCell(cell);
+
+                    cell = new PdfPCell(new Phrase(row.Cells["Quantity"].Value.ToString(), bodyFont));
+                    cell.Border = Rectangle.NO_BORDER;
+                    cell.Padding = 0;
+                    cell.PaddingTop = 5;
+                    table.AddCell(cell);
+
+                    cell = new PdfPCell(new Phrase(totalProduct.ToString(), bodyFont));
+                    cell.Border = Rectangle.NO_BORDER;
+                    cell.Padding = 0;
+                    cell.PaddingTop = 5;
+                    table.AddCell(cell);
+                }
+                
+            }
+
+            doc.Add(table);
+            doc.Add(new Paragraph("\n"));
+
+            doc.Add(new Paragraph($"Subtotal: {subtotalLabel.Text:C}", footerFont));
+            doc.Add(new Paragraph($"IVA: {ivaLabel.Text:C}", footerFont));
+            doc.Add(new Paragraph($"Total: {totalLabel.Text:C}", footerFont));
+
+            doc.Add(new Paragraph("\n"));
+
+            doc.Add(new Paragraph(DateTime.Now.ToString(), footerLittleFont));
+            doc.Add(new Paragraph("Muchas gracias por su compra, vuelva pronto", footerBoldFont));
+
+            doc.Close();
+
+            OpenPDF(filePath);
         }
 
-        private void ResetButton_Click(object sender, EventArgs e)
+        private void OpenPDF(string filePath)
         {
-            productsSelectedGrid.DataSource = null;
-            UpdateTotals();
+            try
+            {
+                Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("No se pudo abrir el archivo PDF. Detalles: " + ex.Message);
+            }
         }
     }
 }
